@@ -2,7 +2,7 @@ package com.techelevator.ui;
 
 import java.util.Scanner;
 
-public class UserInterface {
+public class Menu {
     private Scanner scanner = new Scanner(System.in);
 
     public void displayHomeScreen() {
@@ -24,6 +24,7 @@ public class UserInterface {
 
 
     }
+
     public void displayMessage(String message) {
         System.out.println();
         System.out.println(message);
@@ -38,22 +39,15 @@ public class UserInterface {
         System.out.println("option = " + option);
         if (option.equals("d")) {
             return "display";
-            //display items
-        }
-        else if (option.equals("p")) {
-            System.out.println(">(M) Feed Money");
-            System.out.println();
-
-        }
-        else if (option.equals("e")) {
+        } else if (option.equals("p")) {
+            return "purchase";
+        } else if (option.equals("e")) {
             return "exit";
-            //
-        }
-        else {
+        } else {
             return "";
         }
-
     }
+
 
 
 }

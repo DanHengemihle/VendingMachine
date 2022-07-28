@@ -2,13 +2,13 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 
-public abstract class Items {
+public abstract class Item {
     private BigDecimal price;
     private String name;
     private String type;
     private String slotIdentifier;
 
-    public Items(String slotIdentifier) {
+    public Item(String slotIdentifier) {
         this.slotIdentifier = slotIdentifier;
     }
 

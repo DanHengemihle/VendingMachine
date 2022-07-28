@@ -1,29 +1,52 @@
 package com.techelevator;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class Inventory {
+    //public List<String> itemName;
 
-    private Map<String, Items> inventory = new HashMap<>();
-    private Map<String, Integer> itemStock = new HashMap<>();
+    public Inventory() {
 
-    public Inventory(InventoryBuilder inventoryBuilder) throws FileNotFoundException {
-        inventory = inventoryBuilder.getInventory();
-        for (int i = 0; i < inventoryBuilder.getItemName().size(); i++) {
-            itemStock = itemStock.put(inventoryBuilder.getItemName().get(i), 6);
+    }
+
+
+    public Map<String, Item> getInventory() throws FileNotFoundException {
+
+        File inventoryFile = new File("catering.csv");  //"catering1.csv"
+        Map<String, Item> inventory = new HashMap<>();
+        try(Scanner scanner = new Scanner(inventoryFile)) {
+
+            while (scanner.hasNextLine()) {
+                String lineFromInventory = scanner.nextLine();
+                String[] itemInfo = lineFromInventory.split(",");
+                Item items;
+                if(itemInfo[4].equals("Gum")){
+                    items = new Gum(itemInfo[0]);
+                } else if(itemInfo[4].equals("Drink")) {
+                    items = new Drink(itemInfo[0]);
+                } else if(itemInfo[4].equals("Candy")){
+                    items = new Candy(itemInfo[0]);
+                } else {
+                    items = new Munchy(itemInfo[0]);
+                }
+                items.setName(itemInfo[1]);
+                BigDecimal price = new BigDecimal(itemInfo[2]);
+                items.setPrice(price);
+
+                inventory.put(itemInfo[0], items);
+              //  itemName.add(itemInfo[1]);
+            }
+
         }
-    }
 
-
-
-    public Map<String, Integer> getItemStock() {
-
-        return itemStock;
-    }
-    public Map<String, Items> getInventory() {
         return inventory;
     }
 
-}
+//    public List<String> getItemName() {
+      //  return itemName;
+    }
+
+
