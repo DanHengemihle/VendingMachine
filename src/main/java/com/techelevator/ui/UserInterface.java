@@ -38,12 +38,16 @@ public class UserInterface {
         System.out.println("option = " + option);
         if (option.equals("d")) {
             return "display";
+            //display items
         }
         else if (option.equals("p")) {
-            return "purchase";
+            System.out.println(">(M) Feed Money");
+            System.out.println();
+
         }
         else if (option.equals("e")) {
             return "exit";
+            //
         }
         else {
             return "";

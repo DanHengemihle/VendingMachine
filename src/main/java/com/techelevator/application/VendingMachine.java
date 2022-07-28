@@ -1,8 +1,7 @@
 package com.techelevator.application;
 
-import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserInterface;
-import com.techelevator.ui.UserOutput;
+
 
 public class VendingMachine {
     UserInterface userInterface = new UserInterface();
