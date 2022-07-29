@@ -45,6 +45,7 @@ public abstract class Item {
     }
 
     //abstract method
+    public abstract String itemMessage ();
 
 
 }

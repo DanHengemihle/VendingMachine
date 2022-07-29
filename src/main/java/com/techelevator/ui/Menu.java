@@ -2,6 +2,7 @@ package com.techelevator.ui;
 
 import com.techelevator.Inventory;
 import com.techelevator.Item;
+import com.techelevator.Money;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -45,13 +46,12 @@ public class Menu {
 
         String selectedOption = scanner.nextLine();
         String option = selectedOption.trim().toLowerCase();
-        System.out.println("option = " + option);
         if (option.equals("d")) {
-            return "display";
+            return "Items List";
         } else if (option.equals("p")) {
-            return "purchase";
+            return "Purchase Menu";
         } else if (option.equals("e")) {
-            return "exit";
+            return "Exit";
         } else {
             return "";
         }
@@ -66,7 +66,6 @@ public class Menu {
     public String getPurchaseOption() {
         String selectedOption = scanner.nextLine();
         String option = selectedOption.trim().toLowerCase();
-        System.out.println("option = " + option);
         if (option.equals("m")) {
             return "Feed Money";
         } else if (option.equals("s")) {
@@ -77,4 +76,16 @@ public class Menu {
             return "";
         }
     }
+    public void displayPurchaseMenu() {
+        displayMessage(">(M) Feed Money");
+        displayMessage(">(S) Select Item");
+        displayMessage(">(F) Finish Transaction");
+    }
+
+    public String menuSelection(){
+        return scanner.nextLine();
+    }
+
 }
+
+
