@@ -51,29 +51,30 @@ public class VendingMachine {
     public void feedMoney() {
         Balance newBalance = new Balance();
 
-        userInterface.displayMessage("Insert your cash");
-        userInterface.displayMessage("$1");
-        userInterface.displayMessage("$5");
-        userInterface.displayMessage("$10");
-        userInterface.displayMessage("$20");
-        userInterface.displayMessage("Done feeding money?");
-        userInterface.displayMessage("Yes or No");
-
 
         while (!userInterface.menuSelection().equals("Yes")){
-                if (userInterface.menuSelection().equals("$1")) {
+            userInterface.displayMessage("Insert your cash");
+            userInterface.displayMessage("$1");
+            userInterface.displayMessage("$5");
+            userInterface.displayMessage("$10");
+            userInterface.displayMessage("$20");
+            userInterface.displayMessage("Done feeding money?");
+            userInterface.displayMessage("Yes or No");
+            String userInput = userInterface.menuSelection();
+
+                if (userInput.equals("$1")) {
                     newBalance.updateBalance(Money.dollar);
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInterface.menuSelection().equals("$5")) {
+                } else if (userInput.equals("$5")) {
                     newBalance.updateBalance(new BigDecimal("5"));
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInterface.menuSelection().equals("$10")) {
+                } else if (userInput.equals("$10")) {
                     newBalance.updateBalance(new BigDecimal("10"));
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInterface.menuSelection().equals("$20")) {
+                } else if (userInput.equals("$20")) {
                     newBalance.updateBalance(new BigDecimal("20"));
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInterface.menuSelection().equals("Yes")){
+                } else if (userInput.equals("Yes")){
                     userInterface.displayPurchaseMenu();
                 } else userInterface.displayMessage("Invalid money amount.");
         }
