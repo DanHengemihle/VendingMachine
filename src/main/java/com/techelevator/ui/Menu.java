@@ -75,10 +75,6 @@ public class Menu {
             return "Finish Transaction";
         } else {
             return "";
-
-
         }
-
-
     }
 }
