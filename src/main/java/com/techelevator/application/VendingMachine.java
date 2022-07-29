@@ -22,6 +22,7 @@ public class VendingMachine {
         while(true) {
             userInterface.displayHomeScreen();
             String choice = userInterface.getHomeScreenOption();
+            String purchaseChoice = userInterface.getPurchaseOption();
 
             System.out.println(choice);
             if(choice.equals("display")) {
@@ -29,19 +30,19 @@ public class VendingMachine {
                     String itemProperties = currentEntry.getKey()  + " " + currentEntry.getValue().getName() + " " + currentEntry.getValue().getPrice();
                     //add stock above ^
                     System.out.println(itemProperties);
+
                 }
-                //display identifier, name, price, stock
             }
             else if(choice.equals("purchase")) {
-                // make a purchase
                 System.out.println(">(M) Feed Money");
                 System.out.println(">(S) Select Item");
-                System.out.println(">(F) Finish");
+                System.out.println(">(F) Finish Transaction");
             }
-            else if(choice.equals("exit")) {
-                // good bye
+            else if(choice.equals("Exit")) {
+                System.out.println("Good Bye");
                 break;
             }
+
         }
     }
 }

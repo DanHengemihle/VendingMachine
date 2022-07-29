@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class Inventory {
-    //public List<String> itemName;
+    public List<Item> itemsList;
 
     public Inventory() {
 
@@ -37,7 +37,7 @@ public class Inventory {
                 items.setPrice(price);
 
                 inventory.put(itemInfo[0], items);
-              //  itemName.add(itemInfo[1]);
+                itemsList.add(items);
             }
 
         }
@@ -45,8 +45,11 @@ public class Inventory {
         return inventory;
     }
 
-//    public List<String> getItemName() {
-      //  return itemName;
+    public List<Item> getItemsList() {
+        return itemsList;
     }
+
+
+}
 
 

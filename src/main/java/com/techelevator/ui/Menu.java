@@ -1,9 +1,23 @@
 package com.techelevator.ui;
 
+import com.techelevator.Inventory;
+import com.techelevator.Item;
+
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
     private Scanner scanner = new Scanner(System.in);
+    private Map<String, Item> displayInventory = new HashMap<>();
+
+    public Menu(Inventory inventory) throws FileNotFoundException {
+        displayInventory = inventory.getInventory();
+    }
+
+    public Menu() {
+    }
 
     public void displayHomeScreen() {
         System.out.println();
@@ -25,11 +39,6 @@ public class Menu {
 
     }
 
-    public void displayMessage(String message) {
-        System.out.println();
-        System.out.println(message);
-        System.out.println();
-    }
 
     public String getHomeScreenOption() {
 
@@ -48,6 +57,28 @@ public class Menu {
         }
     }
 
+    public void displayMessage(String message) {
+        System.out.println();
+        System.out.println(message);
+        System.out.println();
+    }
+
+    public String getPurchaseOption() {
+        String selectedOption = scanner.nextLine();
+        String option = selectedOption.trim().toLowerCase();
+        System.out.println("option = " + option);
+        if (option.equals("m")) {
+            return "Feed Money";
+        } else if (option.equals("s")) {
+            return "Select Item";
+        } else if (option.equals("f")) {
+            return "Finish Transaction";
+        } else {
+            return "";
 
 
+        }
+
+
+    }
 }
