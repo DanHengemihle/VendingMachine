@@ -23,8 +23,9 @@ public class VendingMachine {
             userInterface.displayHomeScreen();
             String choice = userInterface.getHomeScreenOption();
             String purchaseChoice = userInterface.getPurchaseOption();
+           // Item testItem = displayInventory.get("A1");
 
-            System.out.println(choice);
+            userInterface.displayMessage(choice);
             if(choice.equals("display")) {
                 for (Map.Entry<String, Item> currentEntry : displayInventory.entrySet()) {
                     String itemProperties = currentEntry.getKey()  + " " + currentEntry.getValue().getName() + " " + currentEntry.getValue().getPrice();
@@ -34,14 +35,15 @@ public class VendingMachine {
                 }
             }
             else if(choice.equals("purchase")) {
-                System.out.println(">(M) Feed Money");
-                System.out.println(">(S) Select Item");
-                System.out.println(">(F) Finish Transaction");
+                userInterface.displayMessage(">(M) Feed Money");
+                userInterface.displayMessage(">(S) Select Item");
+                userInterface.displayMessage(">(F) Finish Transaction");
             }
             else if(choice.equals("Exit")) {
-                System.out.println("Good Bye");
+                userInterface.displayMessage("Good Bye");
                 break;
             }
+
 
         }
     }

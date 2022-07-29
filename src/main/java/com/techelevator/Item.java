@@ -43,4 +43,9 @@ public abstract class Item {
     public void setSlotIdentifier(String slotIdentifier) {
         this.slotIdentifier = slotIdentifier;
     }
+
+    //abstract method
+
+
 }
+

@@ -23,11 +23,11 @@ public class Inventory {
                 String lineFromInventory = scanner.nextLine();
                 String[] itemInfo = lineFromInventory.split(",");
                 Item items;
-                if(itemInfo[4].equals("Gum")){
+                if(itemInfo[3].equals("Gum")){
                     items = new Gum(itemInfo[0]);
-                } else if(itemInfo[4].equals("Drink")) {
+                } else if(itemInfo[3].equals("Drink")) {
                     items = new Drink(itemInfo[0]);
-                } else if(itemInfo[4].equals("Candy")){
+                } else if(itemInfo[3].equals("Candy")){
                     items = new Candy(itemInfo[0]);
                 } else {
                     items = new Munchy(itemInfo[0]);

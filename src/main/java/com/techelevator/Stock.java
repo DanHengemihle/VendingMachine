@@ -12,8 +12,8 @@ public class Stock extends Inventory{
     }
 
     public void updatedStock () throws FileNotFoundException {
-        for(String currentName : getInventory().keySet()){
-            stock.put(currentName, startingStock);
+        for(String slotIdentifier : getInventory().keySet()){
+            stock.put(slotIdentifier, startingStock);
         }
     }
 }
