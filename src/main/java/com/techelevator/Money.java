@@ -3,11 +3,13 @@ package com.techelevator;
 import java.math.BigDecimal;
 
 public class Money {
-    public static final BigDecimal dollar = new BigDecimal("1.00");
-    public static final BigDecimal quarter = new BigDecimal("0.25");
-    public static final BigDecimal dime = new BigDecimal("0.10");
-    public static final BigDecimal nickel = new BigDecimal("0.05");
-
+    public static final BigDecimal ONE_DOLLAR = new BigDecimal("1.00");
+    public static final BigDecimal QUARTER = new BigDecimal("0.25");
+    public static final BigDecimal DIME = new BigDecimal("0.10");
+    public static final BigDecimal NICKEL = new BigDecimal("0.05");
+    public static final BigDecimal FIVE_DOLLARS = new BigDecimal("5.00");
+    public static final BigDecimal TEN_DOLLARS = new BigDecimal("10.00");
+    public static final BigDecimal TWENTY_DOLLARS = new BigDecimal("20.00");
 
 
     //update change to give

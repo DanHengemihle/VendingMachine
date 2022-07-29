@@ -6,6 +6,7 @@ import com.techelevator.Money;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -76,6 +77,9 @@ public class Menu {
             return "";
         }
     }
+
+
+
     public void displayPurchaseMenu() {
         displayMessage(">(M) Feed Money");
         displayMessage(">(S) Select Item");
@@ -83,7 +87,19 @@ public class Menu {
     }
 
     public String menuSelection(){
-        return scanner.nextLine();
+        String selectedOption = scanner.nextLine();
+        String option = selectedOption.trim().toLowerCase();
+        return option;
+    }
+
+    public void feedingMoneyMenu() {
+        displayMessage("Insert your cash");
+        displayMessage("$1");
+        displayMessage("$5");
+        displayMessage("$10");
+        displayMessage("$20");
+        displayMessage("Done feeding money?");
+        displayMessage("Yes or No");
     }
 
 }

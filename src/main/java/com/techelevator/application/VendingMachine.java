@@ -1,17 +1,11 @@
 package com.techelevator.application;
 
-import com.techelevator.Balance;
-import com.techelevator.Inventory;
-import com.techelevator.Item;
-import com.techelevator.Money;
+import com.techelevator.*;
 import com.techelevator.ui.Menu;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class VendingMachine {
@@ -22,7 +16,7 @@ public class VendingMachine {
         displayInventory = inventory.getInventory();
     }
 
-    public void run() {
+    public void run() throws FileNotFoundException {
         while (true) {
             userInterface.displayHomeScreen();
             String choice = userInterface.getHomeScreenOption();
@@ -36,14 +30,36 @@ public class VendingMachine {
                     //add stock above ^
                     System.out.println(itemProperties);
                 }
-            } else if (choice.equals("Purchase Menu")) {
+            } if (choice.equals("Purchase Menu")) {
                 userInterface.displayPurchaseMenu();
-                if (userInterface.getPurchaseOption().equals("Feed Money")) ;
-                feedMoney();
-            } else if (choice.equals("Exit")) {
-                userInterface.displayMessage("Good Bye");
-                break;
+                if (userInterface.getPurchaseOption().equals("Feed Money")) {
+                    feedMoney();
+                } if (userInterface.getPurchaseOption().equals("Select Item")) {
+                    selectItem();
+                } if (choice.equals("Exit")) {
+                    userInterface.displayMessage("Good Bye");
+                    break;
 
+                }
+            }
+        }
+    }
+
+    public void selectItem() throws FileNotFoundException {
+        Balance currentBalance = new Balance();
+        Stock currentStock = new Stock();
+
+        if (userInterface.menuSelection().equals("s")) {
+            for (Map.Entry<String, Item> currentEntry : displayInventory.entrySet()) {
+                String itemProperties = currentEntry.getKey() + " " + currentEntry.getValue().getName() + " " + currentEntry.getValue().getPrice();
+                //add stock above ^
+                System.out.println(itemProperties);
+            }
+            for (String currentItem : displayInventory.keySet()) {
+                if (userInterface.menuSelection().equals(currentItem)) {
+                    //change the stock, print name/cost/remaining balance, and return message
+                    currentStock.updateStock();
+                }
             }
         }
     }
@@ -51,32 +67,27 @@ public class VendingMachine {
     public void feedMoney() {
         Balance newBalance = new Balance();
 
-
         while (!userInterface.menuSelection().equals("Yes")){
-            userInterface.displayMessage("Insert your cash");
-            userInterface.displayMessage("$1");
-            userInterface.displayMessage("$5");
-            userInterface.displayMessage("$10");
-            userInterface.displayMessage("$20");
-            userInterface.displayMessage("Done feeding money?");
-            userInterface.displayMessage("Yes or No");
+            userInterface.feedingMoneyMenu();
             String userInput = userInterface.menuSelection();
 
-                if (userInput.equals("$1")) {
-                    newBalance.updateBalance(Money.dollar);
+                if (userInput.equals("$1") || userInput.equals("1")) {
+                    newBalance.updateBalance(Money.ONE_DOLLAR);
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInput.equals("$5")) {
-                    newBalance.updateBalance(new BigDecimal("5"));
+                } else if (userInput.equals("$5") || userInput.equals("5")) {
+                    newBalance.updateBalance(Money.FIVE_DOLLARS);
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInput.equals("$10")) {
-                    newBalance.updateBalance(new BigDecimal("10"));
+                } else if (userInput.equals("$10") || userInput.equals("10")) {
+                    newBalance.updateBalance(Money.TEN_DOLLARS);
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInput.equals("$20")) {
-                    newBalance.updateBalance(new BigDecimal("20"));
+                } else if (userInput.equals("$20") || userInput.equals("20")) {
+                    newBalance.updateBalance(Money.TWENTY_DOLLARS);
                     userInterface.displayMessage("Your balance is " + newBalance.getBalance());
-                } else if (userInput.equals("Yes")){
+                } else if (userInput.toLowerCase().equals("yes")){
                     userInterface.displayPurchaseMenu();
                 } else userInterface.displayMessage("Invalid money amount.");
+
+
         }
     }
 }

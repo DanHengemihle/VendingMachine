@@ -10,7 +10,7 @@ public class Gum extends Item{
 
     @Override
     public String itemMessage() {
-        return null;
+        return "Chewy, Chewy, Lots O Bubbles!";
     }
 }
 

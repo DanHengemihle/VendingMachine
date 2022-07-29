@@ -10,6 +10,6 @@ public class Candy extends Item{
 
     @Override
     public String itemMessage() {
-        return null;
+        return "Sugar, Sugar, so Sweet!";
     }
 }

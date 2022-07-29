@@ -9,6 +9,6 @@ public class Drink extends Item{
 
     @Override
     public String itemMessage() {
-        return null;
+        return "Drinky, Drinky, Slurp Slurp!";
     }
 }

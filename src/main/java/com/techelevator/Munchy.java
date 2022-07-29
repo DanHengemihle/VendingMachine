@@ -8,6 +8,6 @@ public class Munchy extends Item{
 
     @Override
     public String itemMessage() {
-        return null;
+        return "Munchy, Munchy, so Good!";
     }
 }
