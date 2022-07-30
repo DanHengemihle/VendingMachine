@@ -16,4 +16,7 @@ public class Balance {
     public void updateBalance(BigDecimal amountAdded) {
         balance = balance.add(amountAdded);
     }
+    public void subtractBalance(BigDecimal amountToSubtract){
+        balance = balance.subtract(amountToSubtract);
+    }
 }

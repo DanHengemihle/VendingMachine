@@ -37,6 +37,7 @@ public class Menu {
 
         System.out.println();
         System.out.print("Please select an option: ");
+        System.out.println();
 
 
     }
@@ -51,10 +52,8 @@ public class Menu {
             return "Items List";
         } else if (option.equals("p")) {
             return "Purchase Menu";
-        } else if (option.equals("e")) {
-            return "Exit";
         } else {
-            return "";
+            return "Exit";
         }
     }
 
@@ -86,20 +85,25 @@ public class Menu {
         displayMessage(">(F) Finish Transaction");
     }
 
-    public String menuSelection(){
+    public String feedMoneyMenuSelection(){
         String selectedOption = scanner.nextLine();
-        String option = selectedOption.trim().toLowerCase();
-        return option;
+        return selectedOption.trim().toLowerCase();
     }
 
     public void feedingMoneyMenu() {
         displayMessage("Insert your cash");
-        displayMessage("$1");
-        displayMessage("$5");
-        displayMessage("$10");
-        displayMessage("$20");
-        displayMessage("Done feeding money?");
-        displayMessage("Yes or No");
+        displayMessage("$1, $5, $10, or $20");
+    }
+    public void doneFeedingMenu() {
+        displayMessage("Insert your cash");
+        displayMessage("$1, $5, $10, or $20");
+        displayMessage("Or");
+        displayMessage("Done feeding money? Yes or No");
+    }
+
+    public String selectItemMenuOption (){
+        String selectedOption = scanner.nextLine();
+        return selectedOption.trim().toUpperCase();
     }
 
 }

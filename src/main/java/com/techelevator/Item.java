@@ -44,7 +44,7 @@ public abstract class Item {
         this.slotIdentifier = slotIdentifier;
     }
 
-    //abstract method
+
     public abstract String itemMessage ();
 
 
