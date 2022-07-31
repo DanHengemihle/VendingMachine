@@ -13,17 +13,21 @@ public class Stock extends Inventory{
 
     public Stock() throws FileNotFoundException {
     }
-    Map<String, Integer> stockFill = new HashMap<>();
-    public Map<String, Integer> stockFiller() throws FileNotFoundException {
-        // Map<String, Integer> stockFill = new HashMap<>();
+//    Map<String, Integer> stockFill = new HashMap<>();
+    public Map<String, Integer> stockFiller(String userInput) throws FileNotFoundException {
+         Map<String, Integer> stockFill = new HashMap<>();
         for (String slotIdentifier : getInventory().keySet()) {
             stockFill.put(slotIdentifier, startingStock);
+            if (userInput.equals(slotIdentifier)) {
+                int number = stockFill.get(slotIdentifier);
+                stockFill.replace(slotIdentifier, number - 1);
+            }
         }
         return stockFill;
     }
 
     public Map<String, Integer> getStock(){
-    return stockFill;
+    return stock;
 }
 
 

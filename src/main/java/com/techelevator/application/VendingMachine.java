@@ -7,11 +7,14 @@ import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.*;
 
+import static com.techelevator.Money.*;
+
 
 public class VendingMachine {
     Menu userInterface = new Menu();
     Stock currentStock = new Stock();
     Balance currentBalance = new Balance();
+    Money dispenser = new Money();
     private Map<String, Item> displayInventory = new HashMap<>();
 
     public VendingMachine(Inventory inventory) throws FileNotFoundException {
@@ -23,12 +26,13 @@ public class VendingMachine {
             userInterface.displayHomeScreen();
             String choice = userInterface.getHomeScreenOption();
             // Item testItem = displayInventory.get("A1");
-
+//            String userInput = userInterface.selectItemMenuOption();
             //      userInterface.displayMessage(choice);
             if (choice.equals("Items List")) {
                 for (Map.Entry<String, Item> currentEntry : displayInventory.entrySet()) {
                     String itemProperties = currentEntry.getKey() + " " + currentEntry.getValue().getName()
-                            + " " + currentEntry.getValue().getPrice() + " " + currentStock.getStock().get(currentEntry.getKey());
+                            + " " + currentEntry.getValue().getPrice()
+                            + " " + currentStock.stockFiller("").get(currentEntry.getKey());
                     //add stock above ^
                     userInterface.displayMessage(itemProperties);
                 }
@@ -43,6 +47,9 @@ public class VendingMachine {
                 if (purchaseChoice.equals("Feed Money")) {
                     feedMoney();
                 }
+                if (purchaseChoice.equals("Finish Transaction")) {
+                    dispenseChange();
+                }
             }
 
            else if (choice.equals("Exit")) {
@@ -56,13 +63,6 @@ public class VendingMachine {
 *fix stock
 *
 *
-*
-*  if wrong input for slot identifier, notify
-*
-*
-*
-*  after finish transaction, give change in largest possible coins, update balance to zero
-*  put them back at the main menu^
 *
 * audit print to a new file
 *
@@ -81,20 +81,25 @@ public class VendingMachine {
             userInterface.displayMessage(itemProperties);
         }
 
-            String userInput = userInterface.selectItemMenuOption();
+           String userInput = userInterface.selectItemMenuOption();
 
-            if (currentBalance.getBalance().compareTo(displayInventory.get(userInput).getPrice()) < 0){
+        if (!displayInventory.containsKey(userInput)) {
+            userInterface.displayMessage("Invalid Slot Identifier. Try Again");
+        }
+
+            else if (currentBalance.getBalance().compareTo(displayInventory.get(userInput).getPrice()) < 0){
                 userInterface.displayMessage("Not enough money for this item.");
             }
 
             else if (displayInventory.containsKey(userInput)) {
                 //change the stock, print name/cost/remaining balance, and return message
                 String type = displayInventory.get(userInput).getType();
-                currentStock.updateStock(userInput);
+                currentStock.stockFiller(userInput); // double check
                 currentBalance.subtractBalance(displayInventory.get(userInput).getPrice());
                 userInterface.displayMessage("Dispensing " + displayInventory.get(userInput).getName()
                 + " " + displayInventory.get(userInput).getPrice() + " " + currentBalance.getBalance() + " " +
                         getMessage(userInput));
+//                currentBalance.setBalance(currentBalance.getBalance());
             }
 
     }
@@ -127,7 +132,7 @@ public class VendingMachine {
 
 
             if (userInput.equals("$1") || userInput.equals("1")) {
-                currentBalance.updateBalance(Money.ONE_DOLLAR);
+                currentBalance.updateBalance(ONE_DOLLAR);
                 userInterface.displayMessage("Your balance is " + currentBalance.getBalance());
                 userInterface.doneFeedingMenu();
             } else if (userInput.equals("$5") || userInput.equals("5")) {
@@ -149,6 +154,33 @@ public class VendingMachine {
 
 
         }
+    }
+    public void dispenseChange () {
+//        Menu menu = new Menu();
+//        Money money = new Money();
+        BigDecimal zero = new BigDecimal(0);
+
+        while (currentBalance.getBalance().compareTo(zero) > 0) {
+//            for (BigDecimal i = new BigDecimal(0); i.compareTo(current.getBalance()) < 0; i.add(iterator)) {
+
+            while (currentBalance.getBalance().compareTo(ONE_DOLLAR) >= 0) {
+                currentBalance.subtractBalance(ONE_DOLLAR);
+                userInterface.displayMessage("Dispensing One Dollar");
+            }
+            while (currentBalance.getBalance().compareTo(QUARTER) >= 0) {
+                currentBalance.subtractBalance(QUARTER);
+                userInterface.displayMessage("Dispensing One Quarter");
+            }
+            while (currentBalance.getBalance().compareTo(DIME) >= 0) {
+                currentBalance.subtractBalance(DIME);
+                userInterface.displayMessage("Dispensing One Dime");
+            }
+            while (currentBalance.getBalance().compareTo(NICKEL) >= 0) {
+                currentBalance.subtractBalance(NICKEL);
+                userInterface.displayMessage("Dispensing One Nickel");
+            }
+        }
+
     }
 }
 

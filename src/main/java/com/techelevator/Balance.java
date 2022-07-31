@@ -9,6 +9,9 @@ public class Balance {
         this.balance = new BigDecimal("0");
     }
 
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 
     public BigDecimal getBalance() {
         return balance;
