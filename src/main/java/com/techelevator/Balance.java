@@ -3,14 +3,10 @@ package com.techelevator;
 import java.math.BigDecimal;
 
 public class Balance {
-    private BigDecimal balance; // = new BigDecimal("0");
+    private BigDecimal balance;
 
     public Balance() {
         this.balance = new BigDecimal("0");
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
     }
 
     public BigDecimal getBalance() {

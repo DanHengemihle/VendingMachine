@@ -1,13 +1,9 @@
 package com.techelevator.ui;
 
-import com.techelevator.Audit;
 import com.techelevator.Inventory;
 import com.techelevator.Item;
-import com.techelevator.Money;
-
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 

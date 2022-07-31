@@ -2,7 +2,6 @@ package com.techelevator.application;
 
 import com.techelevator.*;
 import com.techelevator.ui.Menu;
-
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.*;
@@ -15,7 +14,6 @@ public class VendingMachine {
     Menu userInterface = new Menu();
     Stock currentStock = new Stock();
     Balance currentBalance = new Balance();
-    Money dispenser = new Money();
     private Map<String, Item> displayInventory = new HashMap<>();
 
     public VendingMachine(Inventory inventory) throws FileNotFoundException {
@@ -28,15 +26,12 @@ public class VendingMachine {
         while (true) {
             userInterface.displayHomeScreen();
             String choice = userInterface.getHomeScreenOption();
-            // Item testItem = displayInventory.get("A1");
-         //   String userInput = userInterface.selectItemMenuOption();
-            //      userInterface.displayMessage(choice);
+
             if (choice.equals("Items List")) {
                 for (Map.Entry<String, Item> currentEntry : displayInventory.entrySet()) {
                     String itemProperties = currentEntry.getKey() + " " + currentEntry.getValue().getName()
                             + " " + currentEntry.getValue().getPrice()
                             + " " + currentStock.getStock().get(currentEntry.getKey());
-                    //add stock above ^
                     userInterface.displayMessage(itemProperties);
                 }
             }
@@ -57,18 +52,11 @@ public class VendingMachine {
 
            else if (choice.equals("Exit")) {
                 userInterface.displayMessage("Good Bye");
+                audit.auditWriter("Vending Machine Turning Off");
                 break;
             } else userInterface.displayMessage("Invalid input, try again.");
         }
     }
-
-/*                    ????????????? TODO LIST ???????????????
-*
-* TODO audit print to a new file
-*
-* TODO unit tests
-*
-* *//////////////////////////////////////////////////////////////////
 
     public void selectItem() throws FileNotFoundException {
 
@@ -77,7 +65,7 @@ public class VendingMachine {
         for (Map.Entry<String, Item> currentEntry : displayInventory.entrySet()) {
             String itemProperties = currentEntry.getKey() + " " + currentEntry.getValue().getName()
                     + " " + currentEntry.getValue().getPrice();
-            //add stock above ^
+
             userInterface.displayMessage(itemProperties);
         }
 
@@ -85,6 +73,8 @@ public class VendingMachine {
 
         if (!displayInventory.containsKey(userInput)) {
             userInterface.displayMessage("Invalid Slot Identifier. Try Again");
+        } else if (currentStock.getStock().get(userInput).equals(0)) {
+            userInterface.displayMessage("Item Is Out Of Stock, Try Another Item");
         }
 
             else if (currentBalance.getBalance().compareTo(displayInventory.get(userInput).getPrice()) < 0){
@@ -92,14 +82,14 @@ public class VendingMachine {
             }
 
             else if (displayInventory.containsKey(userInput)) {
-                //change the stock, print name/cost/remaining balance, and return message
-                String type = displayInventory.get(userInput).getType();
-                currentStock.updateStock(userInput); // double check
+
+                currentStock.updateStock(userInput);
                 currentBalance.subtractBalance(displayInventory.get(userInput).getPrice());
                 userInterface.displayMessage("Dispensing " + displayInventory.get(userInput).getName()
                 + " " + displayInventory.get(userInput).getPrice() + " " + currentBalance.getBalance() + " " +
                         getMessage(userInput));
-//                currentBalance.setBalance(currentBalance.getBalance());
+                audit.auditWriter(displayInventory.get(userInput).getName() + " \t " +
+                        displayInventory.get(userInput).getPrice() + " " + currentBalance.getBalance() );
             }
 
     }
@@ -123,8 +113,7 @@ public class VendingMachine {
     }
 
 
-    public void feedMoney() {
-//        Balance newBalance = new Balance();
+    public void feedMoney() throws FileNotFoundException {
         String userInput = "";
         userInterface.feedingMoneyMenu();
         while (!userInput.equals("Yes")) {
@@ -135,18 +124,22 @@ public class VendingMachine {
                 currentBalance.updateBalance(ONE_DOLLAR);
                 userInterface.displayMessage("Your balance is " + currentBalance.getBalance());
                 userInterface.doneFeedingMenu();
+                audit.auditWriter("MONEY FED: " + ONE_DOLLAR + " " + currentBalance.getBalance());
             } else if (userInput.equals("$5") || userInput.equals("5")) {
                 currentBalance.updateBalance(Money.FIVE_DOLLARS);
                 userInterface.displayMessage("Your balance is " + currentBalance.getBalance());
                 userInterface.doneFeedingMenu();
+                audit.auditWriter("MONEY FED: " + FIVE_DOLLARS + " " + currentBalance.getBalance());
             } else if (userInput.equals("$10") || userInput.equals("10")) {
                 currentBalance.updateBalance(Money.TEN_DOLLARS);
                 userInterface.displayMessage("Your balance is " + currentBalance.getBalance());
                 userInterface.doneFeedingMenu();
+                audit.auditWriter("MONEY FED: " + TEN_DOLLARS + " " + currentBalance.getBalance());
             } else if (userInput.equals("$20") || userInput.equals("20")) {
                 currentBalance.updateBalance(Money.TWENTY_DOLLARS);
                 userInterface.displayMessage("Your balance is " + currentBalance.getBalance());
                 userInterface.doneFeedingMenu();
+                audit.auditWriter("MONEY FED:      " + TWENTY_DOLLARS + " " + currentBalance.getBalance());
             }
             else if (userInput.equalsIgnoreCase("yes")) {
                 break;
@@ -155,14 +148,11 @@ public class VendingMachine {
 
         }
     }
-    public void dispenseChange () {
-//        Menu menu = new Menu();
-//        Money money = new Money();
+    public void dispenseChange () throws FileNotFoundException {
         BigDecimal zero = new BigDecimal(0);
 
         while (currentBalance.getBalance().compareTo(zero) > 0) {
-//            for (BigDecimal i = new BigDecimal(0); i.compareTo(current.getBalance()) < 0; i.add(iterator)) {
-
+            audit.auditWriter("CHANGE GIVEN: \t " + currentBalance.getBalance() + " " + "0.00");
             while (currentBalance.getBalance().compareTo(ONE_DOLLAR) >= 0) {
                 currentBalance.subtractBalance(ONE_DOLLAR);
                 userInterface.displayMessage("Dispensing One Dollar");
@@ -179,6 +169,7 @@ public class VendingMachine {
                 currentBalance.subtractBalance(NICKEL);
                 userInterface.displayMessage("Dispensing One Nickel");
             }
+
         }
 
     }
