@@ -3,9 +3,10 @@ package com.techelevator;
 import java.math.BigDecimal;
 
 public class Balance {
-    private BigDecimal balance = new BigDecimal("0");
+    private BigDecimal balance; // = new BigDecimal("0");
 
     public Balance() {
+        this.balance = new BigDecimal("0");
     }
 
 
@@ -17,6 +18,6 @@ public class Balance {
         balance = balance.add(amountAdded);
     }
     public void subtractBalance(BigDecimal amountToSubtract){
-        balance = balance.subtract(amountToSubtract);
+        this.balance = balance.subtract(amountToSubtract);
     }
 }
