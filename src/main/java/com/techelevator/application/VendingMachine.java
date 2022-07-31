@@ -11,6 +11,7 @@ import static com.techelevator.Money.*;
 
 
 public class VendingMachine {
+    Audit audit = new Audit();
     Menu userInterface = new Menu();
     Stock currentStock = new Stock();
     Balance currentBalance = new Balance();
@@ -19,20 +20,22 @@ public class VendingMachine {
 
     public VendingMachine(Inventory inventory) throws FileNotFoundException {
         displayInventory = inventory.getInventory();
+        currentStock.stockFiller();
     }
 
     public void run() throws FileNotFoundException {
+        audit.auditWriter("Starting Vending Machine");
         while (true) {
             userInterface.displayHomeScreen();
             String choice = userInterface.getHomeScreenOption();
             // Item testItem = displayInventory.get("A1");
-//            String userInput = userInterface.selectItemMenuOption();
+         //   String userInput = userInterface.selectItemMenuOption();
             //      userInterface.displayMessage(choice);
             if (choice.equals("Items List")) {
                 for (Map.Entry<String, Item> currentEntry : displayInventory.entrySet()) {
                     String itemProperties = currentEntry.getKey() + " " + currentEntry.getValue().getName()
                             + " " + currentEntry.getValue().getPrice()
-                            + " " + currentStock.stockFiller("").get(currentEntry.getKey());
+                            + " " + currentStock.getStock().get(currentEntry.getKey());
                     //add stock above ^
                     userInterface.displayMessage(itemProperties);
                 }
@@ -58,15 +61,12 @@ public class VendingMachine {
             } else userInterface.displayMessage("Invalid input, try again.");
         }
     }
-/*                    ????????????? TO DO LIST ???????????????
+
+/*                    ????????????? TODO LIST ???????????????
 *
-*fix stock
+* TODO audit print to a new file
 *
-*
-*
-* audit print to a new file
-*
-* unit tests
+* TODO unit tests
 *
 * *//////////////////////////////////////////////////////////////////
 
@@ -94,7 +94,7 @@ public class VendingMachine {
             else if (displayInventory.containsKey(userInput)) {
                 //change the stock, print name/cost/remaining balance, and return message
                 String type = displayInventory.get(userInput).getType();
-                currentStock.stockFiller(userInput); // double check
+                currentStock.updateStock(userInput); // double check
                 currentBalance.subtractBalance(displayInventory.get(userInput).getPrice());
                 userInterface.displayMessage("Dispensing " + displayInventory.get(userInput).getName()
                 + " " + displayInventory.get(userInput).getPrice() + " " + currentBalance.getBalance() + " " +

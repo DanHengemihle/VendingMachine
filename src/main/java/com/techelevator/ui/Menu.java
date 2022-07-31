@@ -1,5 +1,6 @@
 package com.techelevator.ui;
 
+import com.techelevator.Audit;
 import com.techelevator.Inventory;
 import com.techelevator.Item;
 import com.techelevator.Money;
@@ -21,7 +22,7 @@ public class Menu {
     public Menu() {
     }
 
-    public void displayHomeScreen() {
+    public void displayHomeScreen(){
         System.out.println();
         System.out.println("***************************************************");
         System.out.println("                      Home");
@@ -38,7 +39,6 @@ public class Menu {
         System.out.println();
         System.out.print("Please select an option: ");
         System.out.println();
-
 
     }
 
@@ -105,6 +105,7 @@ public class Menu {
         String selectedOption = scanner.nextLine();
         return selectedOption.trim().toUpperCase();
     }
+
 
 }
 
