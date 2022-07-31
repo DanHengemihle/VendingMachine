@@ -52,7 +52,24 @@ public class VendingMachine {
             }
         }
     }
-
+/*                    ????????????? TO DO LIST ???????????????
+*
+*fix stock
+*
+* if balance isnt enough, notify
+*
+*  if wrong input for slot identifier, notify
+*
+*  add the messages to dispenseing
+*
+*  after finish transaction, give change in largest possible coins, update balance to zero
+*  put them back at the main menu^
+*
+* audit print to a new file
+*
+* unit tests
+*
+* *//////////////////////////////////////////////////////////////////
 
     public void selectItem() throws FileNotFoundException {
 
