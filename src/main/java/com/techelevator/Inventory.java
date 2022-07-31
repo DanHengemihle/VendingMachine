@@ -35,6 +35,7 @@ public class Inventory {
                 items.setName(itemInfo[1]);
                 BigDecimal price = new BigDecimal(itemInfo[2]);
                 items.setPrice(price);
+                items.setType(itemInfo[3]);
 
                 inventory.put(itemInfo[0], items);
             }

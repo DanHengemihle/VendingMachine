@@ -52,9 +52,9 @@ public class Menu {
             return "Items List";
         } else if (option.equals("p")) {
             return "Purchase Menu";
-        } else {
+        } else if (option.equals("e")){
             return "Exit";
-        }
+        } else return "Invalid Input";
     }
 
     public void displayMessage(String message) {

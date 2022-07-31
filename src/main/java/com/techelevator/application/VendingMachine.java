@@ -34,7 +34,7 @@ public class VendingMachine {
                 }
             }
 
-            if (choice.equals("Purchase Menu")) {
+           else if (choice.equals("Purchase Menu")) {
                 userInterface.displayPurchaseMenu();
                  String purchaseChoice = userInterface.getPurchaseOption();
                 if (purchaseChoice.equals("Select Item")) {
@@ -45,22 +45,21 @@ public class VendingMachine {
                 }
             }
 
-            if (choice.equals("Exit")) {
+           else if (choice.equals("Exit")) {
                 userInterface.displayMessage("Good Bye");
                 break;
-
-            }
+            } else userInterface.displayMessage("Invalid input, try again.");
         }
     }
 /*                    ????????????? TO DO LIST ???????????????
 *
 *fix stock
 *
-* if balance isnt enough, notify
+*
 *
 *  if wrong input for slot identifier, notify
 *
-*  add the messages to dispenseing
+*
 *
 *  after finish transaction, give change in largest possible coins, update balance to zero
 *  put them back at the main menu^
@@ -79,18 +78,43 @@ public class VendingMachine {
             String itemProperties = currentEntry.getKey() + " " + currentEntry.getValue().getName()
                     + " " + currentEntry.getValue().getPrice();
             //add stock above ^
-            System.out.println(itemProperties);
+            userInterface.displayMessage(itemProperties);
         }
 
             String userInput = userInterface.selectItemMenuOption();
-            if (displayInventory.containsKey(userInput)) {
+
+            if (currentBalance.getBalance().compareTo(displayInventory.get(userInput).getPrice()) < 0){
+                userInterface.displayMessage("Not enough money for this item.");
+            }
+
+            else if (displayInventory.containsKey(userInput)) {
                 //change the stock, print name/cost/remaining balance, and return message
+                String type = displayInventory.get(userInput).getType();
                 currentStock.updateStock(userInput);
                 currentBalance.subtractBalance(displayInventory.get(userInput).getPrice());
                 userInterface.displayMessage("Dispensing " + displayInventory.get(userInput).getName()
-                + " " + displayInventory.get(userInput).getPrice() + " " + currentBalance.getBalance());
+                + " " + displayInventory.get(userInput).getPrice() + " " + currentBalance.getBalance() + " " +
+                        getMessage(userInput));
             }
 
+    }
+
+    public String getMessage (String userInput){
+        Candy candy = new Candy(userInput);
+        Drink drink = new Drink(userInput);
+        Gum gum = new Gum(userInput);
+        Munchy munchy = new Munchy(userInput);
+        String type = displayInventory.get(userInput).getType();
+        if (type.equals("Candy")){
+            return candy.itemMessage();
+        } if (type.equals("Drink")){
+            return drink.itemMessage();
+        } if (type.equals("Gum")){
+            return gum.itemMessage();
+        } if (type.equals("Munchy")){
+            return munchy.itemMessage();
+        }
+        return "";
     }
 
 
